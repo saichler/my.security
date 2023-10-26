@@ -1,4 +1,4 @@
-package common
+package sec_common
 
 type SecurityProvider interface {
 	CanConnectFrom(string, string, uint32) bool
