@@ -1,7 +1,7 @@
 package sec_common
 
 import "net"
-
+//check
 type SecurityProvider interface {
 	CanDial(string, uint32, ...interface{}) (net.Conn, error)
 	CanAccept(conn net.Conn) error
