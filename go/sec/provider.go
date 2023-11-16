@@ -21,11 +21,11 @@ type SecurityProvider interface {
 	CanAccept(net.Conn, ...interface{}) error
 	ValidateConnection(net.Conn, string, ...interface{}) (string, error)
 
-	Encrypt([]byte) (string, error)
-	Decrypt(string) ([]byte, error)
+	Encrypt([]byte, ...interface{}) (string, error)
+	Decrypt(string, ...interface{}) ([]byte, error)
 
-	CanDo(Action, string, string)
-	CanView(string, string, string)
+	CanDo(Action, string, string, ...interface{})
+	CanView(string, string, string, ...interface{})
 }
 
 var securityProvider SecurityProvider
