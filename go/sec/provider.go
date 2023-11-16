@@ -44,22 +44,22 @@ func SetProvider(path string) {
 	securityProvider = p.(SecurityProvider)
 }
 
-func CanDial(host string, port uint32, vars ...interface{}) (net.Conn, error) {
-	return securityProvider.CanDial(host, port, vars)
+func CanDial(host string, port uint32, salts ...interface{}) (net.Conn, error) {
+	return securityProvider.CanDial(host, port, salts)
 }
 
-func CanAccept(conn net.Conn, vars ...interface{}) error {
-	return securityProvider.CanAccept(conn, vars)
+func CanAccept(conn net.Conn, salts ...interface{}) error {
+	return securityProvider.CanAccept(conn, salts)
 }
 
-func ValidateConnection(conn net.Conn, uid string, vars ...interface{}) (string, error) {
-	return securityProvider.ValidateConnection(conn, uid, vars)
+func ValidateConnection(conn net.Conn, uid string, salts ...interface{}) (string, error) {
+	return securityProvider.ValidateConnection(conn, uid, salts)
 }
 
-func Encrypt(data []byte) (string, error) {
+func Encrypt(data []byte, salts ...interface{}) (string, error) {
 	return securityProvider.Encrypt(data)
 }
 
-func Decrypt(decData string) ([]byte, error) {
+func Decrypt(decData string, salts ...interface{}) ([]byte, error) {
 	return securityProvider.Decrypt(decData)
 }
