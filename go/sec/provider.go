@@ -1,9 +1,11 @@
 package sec
 
 import (
+	"fmt"
 	"github.com/saichler/my.simple/go/utils/logs"
 	"net"
 	"plugin"
+	"time"
 )
 
 type Action int32
@@ -24,13 +26,21 @@ type SecurityProvider interface {
 	Encrypt([]byte, ...interface{}) (string, error)
 	Decrypt(string, ...interface{}) ([]byte, error)
 
-	CanDo(Action, string, string, ...interface{})
-	CanView(string, string, string, ...interface{})
+	CanDo(Action, string, string, ...interface{}) error
+	CanView(string, string, string, ...interface{}) error
 }
 
 var securityProvider SecurityProvider
 
-func SetProvider(path string) {
+func SetProvider(provider SecurityProvider) {
+	fmt.Println("*** YOU MIGHT BE SHALLOW PROTECTED!!!")
+	fmt.Println("*** Using this method to set a provider is for testing purpose only.")
+	fmt.Println("*** Proper method is to use LoadProvider from a plugin.")
+	time.Sleep(time.Second * 10)
+	securityProvider = provider
+}
+
+func LoadProvider(path string) {
 	sp, e := plugin.Open(path)
 	if e != nil {
 		logs.Error("Failed to load security plugin")
